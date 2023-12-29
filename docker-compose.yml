@@ -1,0 +1,8 @@
+
+services:
+  app:
+    build: .
+    container_name: octopus
+    command: python app/main.py
+    volumes:
+      - .:/octopus
