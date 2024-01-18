@@ -62,7 +62,7 @@ https://docs.octopus.energy/rest/guides
 cd octopus
 touch .env
 ```
-Put the following environment variables in this file
+Put the following environment variables in this file:
 
 ```bash
 MPAN=
