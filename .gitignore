@@ -7,4 +7,6 @@ settings.json
 data/
 analysis/ # exclude jupyter notebooks used for analysis
 .env
-
+.vscode/
+.python-version
+```
