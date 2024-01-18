@@ -1,6 +1,5 @@
 from app.octopus_api_client import OctopusApiClient
 import sys
-import pytest
 
 sys.path.insert(0, '.././app/octopus_api_client.py')
 

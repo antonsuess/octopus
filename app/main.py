@@ -7,7 +7,7 @@ load_dotenv()
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Process start and end dates.")
+    parser = argparse.ArgumentParser(description="Get consumption data.")
     parser.add_argument(
         "fuel_type", type=str, help='The fuel type, either "electricity" or "gas"'
     )

@@ -16,14 +16,6 @@ logging.basicConfig(
 
 log = logging.getLogger(__name__)
 
-"""
-- also get weather data and align with electricity and gas data`
-- get env variables into the container
-- how to pass configuration?
-- where do the spurious lines come from?
-
-"""
-
 date_format = "%Y-%m-%d"
 
 
@@ -55,7 +47,6 @@ class OctopusApiClient:
     def get_url(self, fuel_type: str) -> str:
         """
         Constructs and returns the URL for the API call based on the fuel type.
-        
         Args:
             fuel_type (str): The type of fuel to get data for. This should be either "electricity" or "gas".
         Returns:
@@ -77,7 +68,7 @@ class OctopusApiClient:
         """
         Private method to call the Octopus Energy API.
         This method sends a GET request to the specified URL and returns the response data.
-        
+
         Args:
             url (str): The URL to send the GET request to.
         Returns:
@@ -85,7 +76,7 @@ class OctopusApiClient:
         Raises:
             requests.exceptions.RequestException: If the API call fails.
         """
-        
+
         response = get(url, params, auth=self.basic)
         if response.status_code == 200:
             return response.json()["results"]
@@ -95,9 +86,9 @@ class OctopusApiClient:
     def _get_consumption_data(self, fuel_type: str) -> List:
         """
         Private method to get consumption data from the Octopus Energy API for a specified fuel type and date range.
-        This method iterates over each date in the range from `self.start_date` to `self.end_date`, 
+        This method iterates over each date in the range from `self.start_date` to `self.end_date`,
         and for each date, it calls the API to get the consumption data for the specified fuel type.
-        
+
         Args:
             fuel_type (str): The type of fuel to get data for. This should be either "electricity" or "gas".
         Returns:
@@ -150,7 +141,7 @@ class OctopusApiClient:
 
     def save_consumption_data(self, refined_data: List[Dict], file_name: str) -> None:
         """
-        Saves the consumption data to a file. 
+        Saves the consumption data to a file.
         This method takes the consumption data and a filename, and writes the data to the file in a specified format.
 
         Args:
