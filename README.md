@@ -77,7 +77,7 @@ CUSTOMER_ID="FirstName LastName" # eg.
 ## Usage
 Run the app specifying fuel type (either `'gas'` or `'electricity'`) as well as `start_date` and `end_date`.
 ```bash
-python python app/main.py gas 2024-01-01 2024-01-11
+python app/main.py gas 2024-01-01 2024-01-11
 ```
 ## Testing
 
