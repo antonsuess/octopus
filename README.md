@@ -55,7 +55,7 @@ pip install -r requirements.txt
 ```
 
 ### 7. Get your Octopus Enery credentials
-To complete
+https://docs.octopus.energy/rest/guides
 
 ### 8. Create `octopus/.env` with environment variables
 ```bash
@@ -75,8 +75,10 @@ CUSTOMER_ID="FirstName LastName" # eg.
 
 
 ## Usage
-Add Usage
-
+Run the app specifying fuel type (either `'gas'` or `'electricity'`) as well as `start_date` and `end_date`.
+```bash
+python python app/main.py gas 2024-01-01 2024-01-11
+```
 ## Testing
 
 Tests are written using pytest. To run the tests, use the following command:
