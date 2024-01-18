@@ -75,27 +75,8 @@ CUSTOMER_ID="FirstName LastName" # eg.
 
 
 ## Usage
-Then, you can use the `OctopusApiClient` class in your Python code:
+Add Usage
 
-```python
-from octopus_api_client import OctopusApiClient
-
-user_credentials = {
-    "mpan": 123,
-    "mprn": 123,
-    "electricity_serial_no": "123ABC",
-    "gas_serial_no": "123ABC",
-    "api_key": ,
-}
-
-octopus_api_client = OctopusApiClient(
-    start_date="2020-01-01",
-    end_date="2020-01-02",
-    user_credentials=user_credentials,
-)
-
-electricity_data = octopus_api_client._get_consumption_data("electricity")
-```
 ## Testing
 
 Tests are written using pytest. To run the tests, use the following command:
