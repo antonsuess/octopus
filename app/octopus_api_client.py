@@ -1,10 +1,10 @@
-from requests import get
-from typing import List, Dict
-from datetime import datetime, timedelta
-import pandas as pd
-from requests.auth import HTTPBasicAuth
-
 import logging
+from datetime import datetime, timedelta
+from typing import Dict, List
+
+import pandas as pd
+from requests import Response, get
+from requests.auth import HTTPBasicAuth
 
 logging.basicConfig(
     level=logging.INFO,
@@ -16,7 +16,7 @@ logging.basicConfig(
 
 log = logging.getLogger(__name__)
 
-date_format = "%Y-%m-%d"
+date_format: str = "%Y-%m-%d"
 
 
 class OctopusApiClient:
@@ -33,7 +33,7 @@ class OctopusApiClient:
 
     base_url = "https://api.octopus.energy"
 
-    def __init__(self, start_date: str, end_date: str, user_credentials: Dict):
+    def __init__(self, start_date: str, end_date: str, user_credentials: Dict) -> None:
         self.start_date = datetime.strptime(start_date, date_format)
         self.end_date = datetime.strptime(end_date, date_format)
         self.mpan = user_credentials["mpan"]
@@ -77,11 +77,12 @@ class OctopusApiClient:
             requests.exceptions.RequestException: If the API call fails.
         """
 
-        response = get(url, params, auth=self.basic)
+        response: Response = get(url, params, auth=self.basic)
         if response.status_code == 200:
             return response.json()["results"]
         else:
             log.error(f"Error: Received status code {response.status_code}")
+            return []
 
     def _get_consumption_data(self, fuel_type: str) -> List:
         """
@@ -96,24 +97,24 @@ class OctopusApiClient:
         Raises:
             requests.exceptions.RequestException: If an API call fails.
         """
-        consumption_data = []
+        consumption_data: List = []
 
         for date in pd.date_range(self.start_date, self.end_date):
             start_date: str = datetime.strftime(date, date_format)
             log.info(
                 f"Getting data for {start_date} and {fuel_type} for customer {self.customer_id}."
             )
-            params = {
+            params: Dict = {
                 "period_from": start_date,
                 "period_to": datetime.strftime((date + timedelta(days=1)), date_format),
             }
-            response = self._call_api(self.get_url(fuel_type), params)
-            refined_data = self._refine_consumption_data(fuel_type, response)
+            response: List = self._call_api(self.get_url(fuel_type), params)
+            refined_data: List = self._refine_consumption_data(fuel_type, response)
             consumption_data.append(refined_data)
 
         return [item for sub_list in consumption_data for item in sub_list]
 
-    def _refine_consumption_data(self, fuel_type: str, results: dict) -> List[Dict]:
+    def _refine_consumption_data(self, fuel_type: str, results: List) -> List[Dict]:
         """
         Private method to refine the consumption data returned from the Octopus Energy API.
         This method processes the raw data from the API to extract and format the relevant information.
@@ -125,7 +126,7 @@ class OctopusApiClient:
         Raises:
             KeyError: If an expected key is not found in the data.
         """
-        refined_data = []
+        refined_data: List = []
         for result in results:
             result["request_time"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             result["fuel_type"] = fuel_type
