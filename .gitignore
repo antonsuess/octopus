@@ -9,3 +9,5 @@ analysis/ # exclude jupyter notebooks used for analysis
 .env
 .vscode/
 .python-version
+.coverage
+.flake8
